@@ -1,97 +1,70 @@
+"""plant_collections.py stores a dictionary of users, each with their
+own dictionary for plants. Every plant has an arbitrary name and type,
+and plants can be added or viewed as a list.
+"""
+
 from users import load_users, save_users, login
-#custom functions for working with user dictionary in JSON file
-
 from tool import text_input, list_options
-#convenience functions
-
 
 users_file = 'users.json'
-#filename for storing user data
-
+root_options = ('login', 'quit')
+user_options = ('add plant', 'view plants', 'logout', 'quit')
 introduction = '\n\n\n\n\n\n\n\n\n\n\n\n--------------------------------'
 introduction += '--------------------------------'
 introduction += '\n\nWelcome to the Passwordless Plant Collections Manager.'
 introduction += '\nEnter "quit" at any time to quit.'
 introduction += '\n\n--------------------------------'
 introduction += '--------------------------------'
-#formatted introduction text
-
-root_options = ('login', 'quit')
-user_options = ('add plant', 'view plants', 'logout', 'quit')
-#options to be listed
-
 quit_flag = False
 user_flag = ''
-#flags for controlling quit status and active user
 
 
 def quit():
-    #sets quit_flag to True and prints an exit message
     global quit_flag
-    '''
-    Python's "global" keyword tells a function to set the value of a variable 
-    for the whole program, rather than creating an in-function variable with 
-    the same name.
-    '''
-
     quit_flag = True
     print('\nExiting program.')
 
-
 def logout():
-    #sets user_flag to an empty string and prints a logout message
     global user_flag
     user_flag = ''
     print('Logging out.')
 
-
-def invalid_flag():
-    #diagnostic function in case user_flag somehow becomes invalid
+def invalid_user_flag():
+    """invalid_user_flag() is used in case user_flag has been set to a value
+    other than a registered user.
+    """
     print("user_flag invalid")
     quit()
 
-
 def menu():
-    #main menu
+    """menu() is the main program loop, which shows options depending
+    on whether or not a valid user is logged in and passes the user's
+    selection to the appropriate menu.
+    """
     while quit_flag == False:
         if user_flag == '':
             options_list = root_options
+            selection = list_options(options_list)
+            root_menu(selection)
         elif user_flag in users:
             options_list = user_options
+            selection = list_options(options_list)
+            user_menu(selection)
         else:
-            invalid_flag()
-        #evaluates who is using program and checks for valid user_flag
-
-        list_options(options_list)
-        selection = text_input('\nEnter your selection: ')
-        select_menu(selection)
-        #lists options, takes selection, and passes it to menu selector
-
-
-def select_menu(selection):
-    #intermediate function to pass selection to appropriate menu
-    if user_flag == '':
-        root_menu(selection)
-    elif user_flag in users:
-        user_menu(selection)
-    else:
-        invalid_flag()
+            invalid_user_flag()
 
 def root_menu(selection):
-    #evaluates selection if no user is logged in
     if selection == 'quit' or selection == 'q':
         quit()
     elif selection == 'login' or selection == 'l':
         username = login(users, users_file)
         global user_flag
         user_flag = username
-        #sets user_flag after login is performed
     else:
         print('\nSelection invalid.')
 
 
 def user_menu(selection):
-    #evaluates selection if valid user is logged in
     if selection == 'quit' or selection == 'q':
         quit()
     elif selection == 'logout' or selection == 'l':

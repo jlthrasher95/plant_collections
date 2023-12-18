@@ -43,3 +43,5 @@ def list_options(list):
     print('\nThe following options are available:')
     for option in list:
         print('\t' + option.title())
+    selection = text_input('\nEnter your selection: ')
+    return selection
