@@ -1,7 +1,7 @@
 '''This is a module to store functions that I use regularly.'''
 
-vertical_space = '\n\n\n\n\n\n\n\n\n\n\n\n'
-dash_line = '----------------------------------------------------------------'
+vertical_space = '\n' * 12
+dash_line = '-' * 64
 program_running = True
 
 
