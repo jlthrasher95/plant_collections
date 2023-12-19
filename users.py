@@ -1,33 +1,37 @@
-'''users.py is a module to store functions pertaining to users'''
+'''users.py is a module to manage a dictionary of users who each consist
+of a dictionary.
+'''
 
 import json
 import tool
 
 file_name = 'users.json'
+root_options = ('login', 'quit')
 user_data = {}
 active_user = ''
 
-def load_users(filename):
+
+def load_users():
     try:
-        with open(filename) as file_object:
+        with open(file_name) as file_object:
             users_dict = json.load(file_object)
     except FileNotFoundError:
         return {}
     else:
         return users_dict
     
-def save_users(users_dict, filename):
-    with open(filename, 'w') as file_object:
-        json.dump(users_dict, file_object)
+def save_users():
+    with open(file_name, 'w') as file_object:
+        json.dump(user_data, file_object)
 
-def login(users_dict, filename):
+def login():
     username = tool.text_input("\nEnter your name: ")
-    if username in users_dict:
+    if username in user_data:
         print("Welcome back, " + username.title() + "!")
         return username
     else:
-        users_dict[username] = {}
-        save_users(users_dict, filename)
+        user_data[username] = {}
+        save_users()
         print("\nNew user created: " + username)
         print("\nWelcome, " + username.title() + ".")
         return username
@@ -38,11 +42,22 @@ def logout():
     print('Logging out.')
 
 def invalid_user_flag():
-    """invalid_user_flag() is used in case active_user has been set to a value
-    other than a registered user.
+    """invalid_user_flag() is used in case active_user has been set to a
+    value other than a registered user.
     """
     print("active_user invalid")
     quit()
 
+def root_menu():
+    selection = tool.menu(root_options)
+    if selection == 'quit' or selection == 'q':
+        tool.quit()
+    elif selection == 'login' or selection == 'l':
+        username = login()
+        global active_user
+        active_user = username
+    else:
+        print('\nSelection invalid.')
 
-user_data = load_users(file_name)
+
+user_data = load_users()
