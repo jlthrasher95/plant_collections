@@ -1,4 +1,4 @@
-'''tool.py is a module to store functions that I use regularly.'''
+'''This is a module to store functions that I use regularly.'''
 
 vertical_space = '\n\n\n\n\n\n\n\n\n\n\n\n'
 dash_line = '----------------------------------------------------------------'
@@ -6,16 +6,23 @@ program_running = True
 
 
 def quit():
+    """This sets program_running to false and prints a message."""
     global program_running
     program_running = False
     print('\nExiting program.')
     
 def text_input(prompt):
+    """This prompts the user for input and converts it to a lowercase
+    string.
+    """
     reply = input(prompt)
     reply = str(reply.lower())
     return reply
 
 def menu(list):
+    """This offers a list of options to the user and returns their
+    selection.
+    """
     print('\nThe following options are available:')
     for option in list:
         print('\t' + option.title())

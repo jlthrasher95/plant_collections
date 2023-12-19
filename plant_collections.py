@@ -17,9 +17,10 @@ def main_loop():
         elif users.active_user in users.database:
             plant_menu()
         else:
-            users.invalid_user_flag()
+            users.invalid_active_user()
 
 def plant_menu():
+    """This evaluates the selection for a logged in user"""
     selection = tool.menu(user_options)
     if selection == 'quit' or selection == 'q':
         tool.quit()
@@ -33,6 +34,7 @@ def plant_menu():
         print('\nSelection invalid.')
 
 def add_plant():
+    """This adds a new plant to the database"""
     user = users.database[users.active_user]
     type = tool.text_input('\nWhat type of plant would you like to add? ')
     if type == 'quit':
@@ -51,6 +53,7 @@ def add_plant():
             break
 
 def view_plants():
+    """This lists all of a user's plants."""
     user = users.database[users.active_user]
     print('\n' + users.active_user.title() + ' has the following plants:')
     for plant in user:
