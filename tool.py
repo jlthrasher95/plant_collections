@@ -2,12 +2,12 @@
 
 vertical_space = '\n\n\n\n\n\n\n\n\n\n\n\n'
 dash_line = '----------------------------------------------------------------'
-run_flag = True
+program_running = True
 
 
 def quit():
-    global run_flag
-    run_flag = False
+    global program_running
+    program_running = False
     print('\nExiting program.')
     
 def text_input(prompt):

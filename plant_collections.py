@@ -1,26 +1,25 @@
 import users, tool
 
 user_options = ('add plant', 'view plants', 'logout', 'quit')
-introduction = tool.vertical_space + tool.dash_line
-introduction += '\n\nWelcome to the Passwordless Plant Collections Manager.'
-introduction += '\nEnter "quit" at any time to quit.'
-introduction += '\n\n' + tool.dash_line
+introduction = tool.vertical_space + tool.dash_line + '\n\nWelcome to the '
+introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
+introduction += 'time to quit.\n\n' + tool.dash_line
 
 
 def main_loop():
-    """main() is the main program loop, which shows options depending
+    """This is the main program loop, which shows options depending
     on whether or not a valid user is logged in and passes the user's
-    selection to the appropriate menu.
+    selection to the appropriate menu or an error message.
     """
-    while tool.run_flag:
+    while tool.program_running:
         if users.active_user == '':
             users.root_menu()
-        elif users.active_user in users.user_data:
-            user_menu()
+        elif users.active_user in users.database:
+            plant_menu()
         else:
             users.invalid_user_flag()
 
-def user_menu():
+def plant_menu():
     selection = tool.menu(user_options)
     if selection == 'quit' or selection == 'q':
         tool.quit()
@@ -34,9 +33,11 @@ def user_menu():
         print('\nSelection invalid.')
 
 def add_plant():
-    user = users.user_data[users.active_user]
+    user = users.database[users.active_user]
     type = tool.text_input('\nWhat type of plant would you like to add? ')
-    while tool.run_flag:
+    if type == 'quit':
+        tool.quit()
+    while tool.program_running:
         name = tool.text_input("\nWhat's this plant's name? ")
         if name == 'quit':
             tool.quit()
@@ -50,10 +51,10 @@ def add_plant():
             break
 
 def view_plants():
-    user = users.user_data[users.active_user]
+    user = users.database[users.active_user]
     print('\n' + users.active_user.title() + ' has the following plants:')
     for plant in user:
-        print('\tA ' + user[plant] + ' named ' + plant.title())
+        print(plant.title() + ' the ' + user[plant])
 
 
 print(introduction)

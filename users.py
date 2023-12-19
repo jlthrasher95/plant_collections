@@ -7,7 +7,7 @@ import tool
 
 file_name = 'users.json'
 root_options = ('login', 'quit')
-user_data = {}
+database = {}
 active_user = ''
 
 
@@ -22,15 +22,15 @@ def load_users():
     
 def save_users():
     with open(file_name, 'w') as file_object:
-        json.dump(user_data, file_object)
+        json.dump(database, file_object)
 
 def login():
     username = tool.text_input("\nEnter your name: ")
-    if username in user_data:
+    if username in database:
         print("Welcome back, " + username.title() + "!")
         return username
     else:
-        user_data[username] = {}
+        database[username] = {}
         save_users()
         print("\nNew user created: " + username)
         print("\nWelcome, " + username.title() + ".")
@@ -53,11 +53,10 @@ def root_menu():
     if selection == 'quit' or selection == 'q':
         tool.quit()
     elif selection == 'login' or selection == 'l':
-        username = login()
         global active_user
-        active_user = username
+        active_user = login()
     else:
         print('\nSelection invalid.')
 
 
-user_data = load_users()
+database = load_users()
