@@ -10,17 +10,6 @@ introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
 introduction += 'time to quit.\n\n' + tool.dash_line
 
 
-def main_loop():
-    """This is the main program loop, which shows options depending
-    on whether or not a valid user is logged in and passes the user's
-    selection to the appropriate menu or an error message.
-    """
-    while session.running:
-        if session.user == '':
-            root_menu()
-        else:
-            plant_menu()
-
 def root_menu():
     """This allows the user to quit or login."""
     selection = tool.menu(root_options)
@@ -71,4 +60,8 @@ def view_plants():
 
 print(introduction)
 session = Session(file_name)
-main_loop()
+while session.running:
+    if session.user:
+        plant_menu()
+    else:
+        root_menu()
