@@ -1,5 +1,9 @@
-import users, tool
+import tool
+from session import Session
 
+
+file_name = 'users.json'
+root_options = ('login', 'quit')
 user_options = ('add plant', 'view plants', 'logout', 'quit')
 introduction = tool.vertical_space + tool.dash_line + '\n\nWelcome to the '
 introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
@@ -11,21 +15,29 @@ def main_loop():
     on whether or not a valid user is logged in and passes the user's
     selection to the appropriate menu or an error message.
     """
-    while tool.program_running:
-        if users.active_user == '':
-            users.root_menu()
-        elif users.active_user in users.database:
-            plant_menu()
+    while session.running:
+        if session.user == '':
+            root_menu()
         else:
-            users.invalid_active_user()
+            plant_menu()
+
+def root_menu():
+    """This allows the user to quit or login."""
+    selection = tool.menu(root_options)
+    if selection == 'quit' or selection == 'q':
+        session.end()
+    elif selection == 'login' or selection == 'l':
+        session.login()
+    else:
+        print('\nSelection invalid.')
 
 def plant_menu():
     """This evaluates the selection for a logged in user."""
     selection = tool.menu(user_options)
     if selection == 'quit' or selection == 'q':
-        tool.quit()
+        session.end()
     elif selection == 'logout' or selection == 'l':
-        users.logout()
+        session.logout()
     elif selection == 'add plant' or selection == 'a':
         add_plant()
     elif selection == 'view plants' or selection == 'v':
@@ -35,30 +47,29 @@ def plant_menu():
 
 def add_plant():
     """This adds a new plant to the database."""
-    user = users.database[users.active_user]
     type = tool.text_input('\nWhat type of plant would you like to add? ')
     if type == 'quit':
-        tool.quit()
-    while tool.program_running:
+        session.end()
+    while session.running:
         name = tool.text_input("\nWhat's this plant's name? ")
         if name == 'quit':
-            tool.quit()
-        elif name in user.keys():
+            session.end()
+        elif name in session.database:
             print('\nYou already have a plant named ' + name + '!')
             continue
         else:
-            user[name] = type
-            users.save_users()
+            session.user_data[name] = type
+            session.save()
             print('Added a ' + type + ' named ' + name.title() + '.')
             break
 
 def view_plants():
     """This lists all of a user's plants."""
-    user = users.database[users.active_user]
-    print('\n' + users.active_user.title() + ' has the following plants:')
-    for plant in user:
-        print(plant.title() + ' the ' + user[plant])
+    print('\n' + session.user.title() + ' has the following plants:')
+    for plant in session.user_data:
+        print(plant.title() + ' the ' + session.user_data[plant])
 
 
 print(introduction)
+session = Session(file_name)
 main_loop()

@@ -1,15 +1,10 @@
 '''This is a module to store functions that I use regularly.'''
 
+
 vertical_space = '\n' * 12
 dash_line = '-' * 64
 program_running = True
 
-
-def quit():
-    """This sets program_running to false and prints a message."""
-    global program_running
-    program_running = False
-    print('\nExiting program.')
     
 def text_input(prompt):
     """This prompts the user for input and converts it to a lowercase
