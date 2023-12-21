@@ -56,7 +56,6 @@ def add_plant():
             session.end()
         elif name in session.database:
             print('\nYou already have a plant named ' + name + '!')
-            continue
         else:
             session.user_data[name] = type
             session.save()
