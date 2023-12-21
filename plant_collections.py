@@ -1,5 +1,5 @@
 import tool
-from session import Session
+from users import Session
 
 
 file_name = 'users.json'
@@ -43,19 +43,18 @@ def add_plant():
         name = tool.text_input("\nWhat's this plant's name? ")
         if name == 'quit':
             session.end()
-        elif name in session.database:
+        elif name in session.user.data:
             print('\nYou already have a plant named ' + name + '!')
         else:
-            session.user_data[name] = type
-            session.save()
+            session.user.add_data(name, type)
             print('Added a ' + type + ' named ' + name.title() + '.')
             break
 
 def view_plants():
     """This lists all of a user's plants."""
-    print('\n' + session.user.title() + ' has the following plants:')
-    for plant in session.user_data:
-        print(plant.title() + ' the ' + session.user_data[plant])
+    print('\n' + session.user.name.title() + ' has the following plants:')
+    for plant in session.user.data:
+        print(plant.title() + ' the ' + session.user.data[plant])
 
 
 print(introduction)
