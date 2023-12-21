@@ -1,3 +1,9 @@
+"""This program is a frontend for the users module for storing plants
+in users' dictionaries of data. Each plant has an arbitrary name and
+type.
+"""
+
+
 import tool
 from users import Session
 
@@ -11,7 +17,7 @@ introduction += 'time to quit.\n\n' + tool.dash_line
 
 
 def root_menu():
-    """This allows the user to quit or login."""
+    """This function allows the user to quit or login."""
     selection = tool.menu(root_options)
     if selection == 'quit' or selection == 'q':
         session.end()
@@ -21,7 +27,7 @@ def root_menu():
         print('\nSelection invalid.')
 
 def plant_menu():
-    """This evaluates the selection for a logged in user."""
+    """This function evaluates the selection for a logged in user."""
     selection = tool.menu(user_options)
     if selection == 'quit' or selection == 'q':
         session.end()
@@ -35,7 +41,7 @@ def plant_menu():
         print('\nSelection invalid.')
 
 def add_plant():
-    """This adds a new plant to the database."""
+    """This function adds a new plant to the database."""
     type = tool.text_input('\nWhat type of plant would you like to add? ')
     if type == 'quit':
         session.end()
@@ -51,7 +57,7 @@ def add_plant():
             break
 
 def view_plants():
-    """This lists all of a user's plants."""
+    """This function lists all of a user's plants."""
     print('\n' + session.user.name.title() + ' has the following plants:')
     for plant in session.user.data:
         print(plant.title() + ' the ' + session.user.data[plant])

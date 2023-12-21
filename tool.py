@@ -7,16 +7,16 @@ program_running = True
 
     
 def text_input(prompt):
-    """This prompts the user for input and converts it to a lowercase
-    string.
+    """This function prompts the user for input and converts it to
+    lowercase.
     """
     reply = input(prompt)
-    reply = str(reply.lower())
+    reply = reply.lower()
     return reply
 
 def menu(list):
-    """This offers a list of options to the user and returns their
-    selection.
+    """This function offers a list of options to the user and
+    returns their selection.
     """
     print('\nThe following options are available:')
     for option in list:
