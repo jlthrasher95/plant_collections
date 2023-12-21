@@ -1,4 +1,4 @@
-"""This program is a frontend for the users module for storing plants
+"""This program is a frontend for the users module to store plants
 in users' dictionaries of data. Each plant has an arbitrary name and
 type.
 """
