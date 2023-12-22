@@ -44,7 +44,7 @@ class Session():
         """This method logs a user in, or else creates the user
         and then logs them in.
         """
-        name = tool.text_input("\nEnter your name: ")
+        name = tool.caseless_input("\nEnter your name: ")
         if name in self.data:
             print("Welcome back, " + name.title() + "!")
             self.user = User(self, name)
@@ -58,7 +58,9 @@ class Session():
         print('\nLogging out.')
 
     def end(self):
-        """This method sets the session run flag to False."""
+        """This method sets the session run flag to False and
+        prints a message.
+        """
         self.running = False
         print('\nExiting program.')
 

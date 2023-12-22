@@ -19,9 +19,9 @@ introduction += 'time to quit.\n\n' + tool.dash_line
 def root_menu():
     """This function allows the user to quit or login."""
     selection = tool.menu(root_options)
-    if selection == 'quit' or selection == 'q':
+    if selection in ('quit', 'q'):
         session.end()
-    elif selection == 'login' or selection == 'l':
+    elif selection in ('login', 'l'):
         session.login()
     else:
         print('\nSelection invalid.')
@@ -29,24 +29,24 @@ def root_menu():
 def plant_menu():
     """This function evaluates the selection for a logged in user."""
     selection = tool.menu(user_options)
-    if selection == 'quit' or selection == 'q':
+    if selection in ('quit', 'q'):
         session.end()
-    elif selection == 'logout' or selection == 'l':
+    elif selection in ('logout', 'l'):
         session.logout()
-    elif selection == 'add plant' or selection == 'a':
+    elif selection in ('add plant', 'a'):
         add_plant()
-    elif selection == 'view plants' or selection == 'v':
+    elif selection in ('view plants', 'v'):
         view_plants()
     else:
         print('\nSelection invalid.')
 
 def add_plant():
-    """This function adds a new plant to the database."""
-    type = tool.text_input('\nWhat type of plant would you like to add? ')
+    """This function adds a new plant to the user's data."""
+    type = tool.caseless_input('\nWhat type of plant would you like to add? ')
     if type == 'quit':
         session.end()
     while session.running:
-        name = tool.text_input("\nWhat's this plant's name? ")
+        name = tool.caseless_input("\nWhat's this plant's name? ")
         if name == 'quit':
             session.end()
         elif name in session.user.data:

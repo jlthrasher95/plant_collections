@@ -6,7 +6,7 @@ dash_line = '-' * 64
 program_running = True
 
     
-def text_input(prompt):
+def caseless_input(prompt):
     """This function prompts the user for input and converts it to
     lowercase.
     """
@@ -21,5 +21,5 @@ def menu(list):
     print('\nThe following options are available:')
     for option in list:
         print('\t' + option.title())
-    selection = text_input('\nEnter your selection: ')
+    selection = caseless_input('\nEnter your selection: ')
     return selection
