@@ -1,4 +1,4 @@
-"""This module stores classes for managing a dictionary of users
+"""This module stores a class for managing a dictionary of users
 who each have a dictionary for user data.
 The dictionary of users is stored in a JSON file.
 """
@@ -10,13 +10,12 @@ import tool
 
 class Session():
     def __init__(self, file_name):
-        """This initializes the instance with a run flag,
-        no active user, the target file's name, and the data
-        from the target file if it exists. If no file exists,
-        session data is set to an empty dictionary.
+        """This initializes the instance with a dictionary of users from
+        a file if it exists, a run flag, and no user logged in.
         """
         self.running = True
         self.user = None
+        self.user_data = None
         self.target_file = file_name
         try:
             with open(file_name) as file_object:
@@ -40,6 +39,11 @@ class Session():
         print("\nNew user created: " + username)
         print("Welcome, " + username.title() + ".")
 
+    def add_to_user(self, key, value):
+        """This method sets a key-value pair in the user's data."""
+        self.user_data[key] = value
+        self.save()
+
     def login(self):
         """This method logs a user in, or else creates the user
         and then logs them in.
@@ -47,14 +51,17 @@ class Session():
         name = tool.caseless_input("\nEnter your name: ")
         if name in self.data:
             print("Welcome back, " + name.title() + "!")
-            self.user = User(self, name)
+            self.user = name
+            self.user_data = self.data[name]
         else:
             self.add_user(name)
-            self.user = User(self, name)
+            self.user = name
+            self.user_data = self.data[name]
 
     def logout(self):
         """This method clears the session user and prints a message."""
         self.user = None
+        self.user_data = None
         print('\nLogging out.')
 
     def end(self):
@@ -63,18 +70,3 @@ class Session():
         """
         self.running = False
         print('\nExiting program.')
-
-
-class User():
-    def __init__(self, session, name):
-        """This initializes the current user of a session by name
-        and pulls their dictionary of user data for easy access.
-        """
-        self.session = session
-        self.name = name
-        self.data = session.data[name]
-
-    def add_data(self, key, value):
-        """This method adds a key-value pair to the user's data."""
-        self.data[key] = value
-        self.session.save()

@@ -9,36 +9,10 @@ from users import Session
 
 
 file_name = 'users.json'
-root_options = ('login', 'quit')
-user_options = ('add plant', 'view plants', 'logout', 'quit')
 introduction = tool.vertical_space + tool.dash_line + '\n\nWelcome to the '
 introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
 introduction += 'time to quit.\n\n' + tool.dash_line
 
-
-def root_menu():
-    """This function allows the user to quit or login."""
-    selection = tool.menu(root_options)
-    if selection in ('quit', 'q'):
-        session.end()
-    elif selection in ('login', 'l'):
-        session.login()
-    else:
-        print('\nSelection invalid.')
-
-def plant_menu():
-    """This function evaluates the selection for a logged in user."""
-    selection = tool.menu(user_options)
-    if selection in ('quit', 'q'):
-        session.end()
-    elif selection in ('logout', 'l'):
-        session.logout()
-    elif selection in ('add plant', 'a'):
-        add_plant()
-    elif selection in ('view plants', 'v'):
-        view_plants()
-    else:
-        print('\nSelection invalid.')
 
 def add_plant():
     """This function adds a new plant to the user's data."""
@@ -49,24 +23,33 @@ def add_plant():
         name = tool.caseless_input("\nWhat's this plant's name? ")
         if name == 'quit':
             session.end()
-        elif name in session.user.data:
+        elif name in session.user_data:
             print('\nYou already have a plant named ' + name + '!')
         else:
-            session.user.add_data(name, type)
+            session.add_to_user(name, type)
             print('Added a ' + type + ' named ' + name.title() + '.')
             break
 
 def view_plants():
     """This function lists all of a user's plants."""
-    print('\n' + session.user.name.title() + ' has the following plants:')
-    for plant in session.user.data:
-        print(plant.title() + ' the ' + session.user.data[plant])
+    print('\n' + session.user.title() + ' has the following plants:')
+    for plant in session.user_data:
+        print(plant.title() + ' the ' + session.user_data[plant])
+
+session = Session(file_name)
+root_options = {'quit' : session.end, 'q' : session.end,
+             'login' : session.login, 'l' : session.login,
+             }
+user_options = {'quit' : session.end, 'q' : session.end,
+              'logout' : session.logout, 'l' : session.logout,
+              'add plant' : add_plant, 'a' : add_plant,
+              'view plants' : view_plants, 'v' : view_plants,
+              }
 
 
 print(introduction)
-session = Session(file_name)
 while session.running:
     if session.user:
-        plant_menu()
+        tool.menu(user_options)
     else:
-        root_menu()
+        tool.menu(root_options)
