@@ -3,8 +3,6 @@
 
 vertical_space = '\n' * 12
 dash_line = '-' * 64
-program_running = True
-
     
 def caseless_input(prompt):
     """This function prompts the user for input and converts it to
