@@ -4,26 +4,18 @@ The dictionary of users is stored in a JSON file.
 """
 
 
-import json, pprint
-import tool
+import json
+import tool, persistent
 
 
-class Session():
+class Session(persistent.Session):
     def __init__(self, file_name):
         """This initializes the instance with a dictionary of users from
         a file if it exists, a run flag, and no user logged in.
         """
-        self.running = True
-        self.user = None
-        self.user_data = None
-        self.target_file = file_name
-        try:
-            with open(file_name) as file_object:
-                users_dict = json.load(file_object)
-        except FileNotFoundError:
-            self.data = {}
-        else:
-            self.data = users_dict
+        persistent.Session.__init__(self, file_name)
+        self.user = self.key
+        self.user_data = self.key_data
 
     def save(self):
         """This method writes the session data to the target file."""
