@@ -5,8 +5,7 @@ type.
 
 
 import tool
-from users import Session
-
+import users
 
 file_name = 'users.json'
 introduction = tool.vertical_space + tool.dash_line + '\n\nWelcome to the '
@@ -36,7 +35,7 @@ def view_plants():
     for plant in session.user_data:
         print(plant.title() + ' the ' + session.user_data[plant])
 
-session = Session(file_name)
+session = users.Session(file_name)
 root_options = {'quit' : session.end, 'q' : session.end,
              'login' : session.login, 'l' : session.login,
              }
