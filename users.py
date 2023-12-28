@@ -4,7 +4,7 @@ The dictionary of users is stored in a JSON file.
 """
 
 
-import json
+import json, pprint
 import tool
 
 
@@ -28,7 +28,7 @@ class Session():
     def save(self):
         """This method writes the session data to the target file."""
         with open(self.target_file, 'w') as file_object:
-            json.dump(self.data, file_object)
+            json.dump(self.data, file_object, indent=4, sort_keys=True)
 
     def add_user(self, username):
         """This method adds a user to session data with
