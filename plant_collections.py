@@ -4,14 +4,13 @@ type.
 """
 
 
-import tool
-import users
+import tool, users
+
 
 file_name = 'users.json'
 introduction = tool.vertical_space + tool.dash_line + '\n\nWelcome to the '
 introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
 introduction += 'time to quit.\n\n' + tool.dash_line
-
 
 def add_plant():
     """This function adds a new plant to the user's data."""
@@ -36,14 +35,15 @@ def view_plants():
         print(plant.title() + ' the ' + session.user_data[plant])
 
 session = users.Session(file_name)
+
 root_options = {'quit' : session.end, 'q' : session.end,
-             'login' : session.login, 'l' : session.login,
-             }
+                'login' : session.login, 'l' : session.login,
+                }
 user_options = {'quit' : session.end, 'q' : session.end,
-              'logout' : session.logout, 'l' : session.logout,
-              'add plant' : add_plant, 'a' : add_plant,
-              'view plants' : view_plants, 'v' : view_plants,
-              }
+                'logout' : session.logout, 'l' : session.logout,
+                'add plant' : add_plant, 'a' : add_plant,
+                'view plants' : view_plants, 'v' : view_plants,
+                }
 
 
 print(introduction)

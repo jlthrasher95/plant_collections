@@ -1,17 +1,15 @@
-"""This module stores a class for managing a dictionary of users
-who each have a dictionary for user data.
-The dictionary of users is stored in a JSON file.
+"""This module stores a class for managing a program session which
+can read to and write from a specified JSON file.
 """
 
 
 import json
-import tool
 
 
 class Session():
     def __init__(self, file_name):
-        """This initializes the instance with a dictionary of users from
-        a file if it exists, a run flag, and no user logged in.
+        """This initializes the instance with a dictionary of data from
+        a file if it exists, a run flag, and no key selected.
         """
         self.running = True
         self.key = None
