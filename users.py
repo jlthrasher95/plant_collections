@@ -9,8 +9,8 @@ import tool, persistent
 
 class Session(persistent.Session):
     def __init__(self, file_name):
-        """This initializes the instance with a dictionary of users from
-        a file if it exists, a run flag, and no user logged in.
+        """This initializes the instance with self.user and
+        self.user_data aliased to self.key and self.key_data.
         """
         super().__init__(file_name)
         self.user = self.key

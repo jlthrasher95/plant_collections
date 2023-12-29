@@ -1,4 +1,4 @@
-'''This is a module to store functions that I use regularly.'''
+'''This is a module to store objects that I use regularly.'''
 
 
 vertical_space = '\n' * 12
