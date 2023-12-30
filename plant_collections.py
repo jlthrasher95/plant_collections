@@ -39,6 +39,7 @@ session = users.Session(file_name)
 root_options = {'quit' : session.end, 'q' : session.end,
                 'login' : session.login, 'l' : session.login,
                 }
+
 user_options = {'quit' : session.end, 'q' : session.end,
                 'logout' : session.logout, 'l' : session.logout,
                 'add plant' : add_plant, 'a' : add_plant,

@@ -3,14 +3,14 @@
 
 vertical_space = '\n' * 12
 dash_line = '-' * 64
+
     
 def caseless_input(prompt):
-    """This function prompts the user for input and converts it to
-    lowercase.
-    """
+    """This function returns all-lowercase input."""
     reply = input(prompt)
     reply = reply.lower()
     return reply
+
 
 def menu(options_dict):
     """This function takes a dictionary of options, presents them to the
@@ -24,6 +24,7 @@ def menu(options_dict):
             print('\t' + key.title())
     selection = caseless_input('\nEnter your selection: ')
     selection_validated = False
+    # Compare selection to options and run corresponding value.
     for key in options_dict:
         if selection == key:
             options_dict[key]()

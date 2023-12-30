@@ -16,6 +16,7 @@ class Session(persistent.Session):
         self.user = self.key
         self.user_data = self.key_data
 
+
     def add_user(self, username):
         """This method adds a user to session data with
         a blank dictionary for user data, then saves the session data.
@@ -25,10 +26,12 @@ class Session(persistent.Session):
         print("\nNew user created: " + username)
         print("Welcome, " + username.title() + ".")
 
+
     def add_to_user(self, key, value):
         """This method sets a key-value pair in the user's data."""
         self.user_data[key] = value
         self.save()
+
 
     def login(self):
         """This method logs a user in, or else creates the user
@@ -43,6 +46,7 @@ class Session(persistent.Session):
             self.add_user(name)
             self.user = name
             self.user_data = self.data[name]
+            
 
     def logout(self):
         """This method clears the session user and prints a message."""

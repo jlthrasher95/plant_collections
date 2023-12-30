@@ -23,10 +23,12 @@ class Session():
         else:
             self.data = data_dict
 
+
     def save(self):
         """This method writes the session data to the target file."""
         with open(self.target_file, 'w') as file_object:
             json.dump(self.data, file_object, indent=4, sort_keys=True)
+            
 
     def end(self):
         """This method sets the session run flag to False and
