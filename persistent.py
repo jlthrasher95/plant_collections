@@ -36,3 +36,10 @@ class Session():
         """
         self.running = False
         print('\nExiting program.')
+
+
+    def quit_check(self, string):
+        """This method checks a string for quit conditions."""
+        quit_conditions = ('q', 'quit')
+        if string in quit_conditions:
+            self.end()
