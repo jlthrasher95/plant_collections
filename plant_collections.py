@@ -15,11 +15,10 @@ introduction += 'time to quit.\n\n' + tool.dash_line
 def add_plant():
     """This function adds a new plant to the user's data."""
     type = tool.caseless_input('\nWhat type of plant would you like to add? ')
-    if type == 'quit':
-        session.end()
+    session.quit_check(type)
     while session.running:
         name = tool.caseless_input("\nWhat's this plant's name? ")
-        if name == 'quit':
+        if name in ('q', 'quit'):
             session.end()
         elif name in session.user_data:
             print('\nYou already have a plant named ' + name + '!')

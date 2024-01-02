@@ -38,7 +38,9 @@ class Session(persistent.Session):
         and then logs them in.
         """
         name = tool.caseless_input("\nEnter your name: ")
-        if name in self.data:
+        if name in ('q', 'quit'):
+            self.end()
+        elif name in self.data:
             print("Welcome back, " + name.title() + "!")
             self.user = name
             self.user_data = self.data[name]

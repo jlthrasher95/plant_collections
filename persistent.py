@@ -40,9 +40,5 @@ class Session():
 
     def quit_check(self, string):
         """This method checks a string for quit conditions."""
-        has_quit = False
-        quit_conditions = ('q', 'quit')
-        if string in quit_conditions:
-            has_quit = True
+        if string in ('q', 'quit'):
             self.end()
-        return has_quit
