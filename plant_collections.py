@@ -14,8 +14,7 @@ introduction += 'time to quit.\n\n' + tool.dash_line
 
 def add_plant():
     """This function adds a new plant to the user's data."""
-    type = tool.caseless_input('\nWhat type of plant would you like to add? ')
-    session.quit_check(type)
+    type = session.key_input('\nWhat type of plant would you like to add? ')
     while session.running:
         name = tool.caseless_input("\nWhat's this plant's name? ")
         if name in ('q', 'quit'):
@@ -37,6 +36,7 @@ session = users.Session(file_name)
 
 root_options = {'quit' : session.end, 'q' : session.end,
                 'login' : session.login, 'l' : session.login,
+                'add user' : session.signup, 'a' : session.signup
                 }
 
 user_options = {'quit' : session.end, 'q' : session.end,

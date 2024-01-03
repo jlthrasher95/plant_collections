@@ -13,18 +13,24 @@ def caseless_input(prompt):
 
 
 def menu(options_dict):
-    """This function takes a dictionary of options, presents them to the
-    user, and then compares the user's selection to the available
-    options. Keys that are one character long are not displayed,
-    allowing for single-character shortcuts to be available but hidden.
+    """This function prints a formatted list of options longer than one
+    character from a dictionary, then takes the user's selection and
+    passes it to run_selection()
     """
     print('\nThe following options are available:')
     for key in options_dict:
         if len(key) > 1:
             print('\t' + key.title())
     selection = caseless_input('\nEnter your selection: ')
+    run_selection(selection, options_dict)
+
+
+def run_selection(selection, options_dict):
+    """This function compares a user's selection against a dictionary of
+    options and runs the corresponding function, or else notifies the
+    user that the selection was invalid.
+    """
     selection_validated = False
-    # Compare selection to options and run corresponding value.
     for key in options_dict:
         if selection == key:
             options_dict[key]()

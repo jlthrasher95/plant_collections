@@ -24,7 +24,23 @@ class Session(persistent.Session):
         self.data[username] = {}
         self.save()
         print("\nNew user created: " + username)
-        print("Welcome, " + username.title() + ".")
+        print("Welcome, " + username.title() + ". You may now log in.")
+
+
+    def signup(self):
+        """This allows a new user to be created, provided that the name
+        is not taken.
+        """
+        name = None
+        while self.running:
+            if name:
+                if name in self.data:
+                    print("That username is already taken.")
+                else:
+                    self.add_user(name)
+                    break
+            name = self.key_input("\nEnter your name: ")
+
 
 
     def add_to_user(self, key, value):
@@ -34,20 +50,21 @@ class Session(persistent.Session):
 
 
     def login(self):
-        """This method logs a user in, or else creates the user
-        and then logs them in.
+        """This function will select a user by name and load their data,
+        or else will reprompt for input until either a valid user or a
+        quit string is entered.
         """
-        name = tool.caseless_input("\nEnter your name: ")
-        if name in ('q', 'quit'):
-            self.end()
-        elif name in self.data:
-            print("Welcome back, " + name.title() + "!")
-            self.user = name
-            self.user_data = self.data[name]
-        else:
-            self.add_user(name)
-            self.user = name
-            self.user_data = self.data[name]
+        name = None
+        while self.running:
+            if name:
+                if name in self.data:
+                    print("Welcome back, " + name.title() + "!")
+                    self.user = name
+                    self.user_data = self.data[name]
+                    break
+                else:
+                    print("Username not found.")
+            name = self.key_input("\nEnter your name: ")
             
 
     def logout(self):
