@@ -17,13 +17,18 @@ class Session(persistent.Session):
         self.user_data = self.key_data
 
 
-    def user_input(self, prompt):
-        """This method performs a quit check on user input and returns
-        the input.
-        """
-        reply = tool.caseless_input(prompt)
-        self.quit_check(reply)
-        return reply
+    def login(self, name):
+        """This method selects a current user and loads their data."""
+        print("Welcome, " + name.title() + "!")
+        self.user = name
+        self.user_data = self.data[name]
+
+
+    def logout(self):
+        """This method clears the session user and prints a message."""
+        self.user = None
+        self.user_data = None
+        print('\nLogging out.')
 
 
     def add_user(self, username):
@@ -36,9 +41,30 @@ class Session(persistent.Session):
         print("Welcome, " + username.title() + ". You may now log in.")
 
 
+    def delete_user(self, name):
+        """This method deletes a user from the database."""
+        del self.data[name]
+        print("User " + name + " deleted.")
+
+
+    def add_to_user(self, key, value):
+        """This method sets a key-value pair in the user's data."""
+        self.user_data[key] = value
+        self.save()
+
+
+    def user_input(self, prompt):
+        """This method performs a quit check on user input and returns
+        the input.
+        """
+        reply = tool.caseless_input(prompt)
+        self.quit_check(reply)
+        return reply
+
+
     def sign_up(self):
-        """This allows a new user to be created, provided that the name
-        is not taken.
+        """This method allows a new user to be created, provided that
+        the name is not taken.
         """
         name = None
         while self.running:
@@ -54,19 +80,27 @@ class Session(persistent.Session):
             name = self.user_input("\nEnter your name, or 'back' to go back: ")
 
 
-    def add_to_user(self, key, value):
-        """This method sets a key-value pair in the user's data."""
-        self.user_data[key] = value
-        self.save()
-
-
-    def login(self, name):
-        print("Welcome, " + name.title() + "!")
-        self.user = name
-        self.user_data = self.data[name]
+    def remove_user(self):
+        """This method prompts the user to enter a name to be removed."""
+        prompt = "\nEnter the username to remove, or 'back' to go back: "
+        name = None
+        while self.running:
+            if name:
+                if name in ('back', 'b'):
+                    print("Removal canceled.")
+                    break
+                elif name in self.data:
+                    self.delete_user(name)
+                    break
+                else:
+                    print("The user " + name + " does not exist.")
+            name = self.user_input(prompt)
 
 
     def sign_in(self):
+        """This method prompts the user for a username and logs them in
+        if the user exists.
+        """
         name = None
         while self.running:
             if name:
@@ -80,9 +114,3 @@ class Session(persistent.Session):
                     print("Username not found.")
             name = self.user_input("\nEnter your name, or 'back' to go back: ")
             
-
-    def logout(self):
-        """This method clears the session user and prints a message."""
-        self.user = None
-        self.user_data = None
-        print('\nLogging out.')
