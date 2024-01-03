@@ -14,23 +14,24 @@ introduction += 'time to quit.\n\n' + tool.dash_line
 
 def add_plant():
     """This function adds a new plant to the user's data."""
-    type = session.key_input('\nWhat type of plant would you like to add? ')
+    type = session.user_input('\nWhat type of plant would you like to add? ')
+    name = None
     while session.running:
-        name = tool.caseless_input("\nWhat's this plant's name? ")
-        if name in ('q', 'quit'):
-            session.end()
-        elif name in session.user_data:
-            print('\nYou already have a plant named ' + name + '!')
-        else:
-            session.add_to_user(name, type)
-            print('Added a ' + type + ' named ' + name.title() + '.')
-            break
+        if name:
+            if name in session.user_data:
+                print('\nYou already have a plant named ' + name + '!')
+            else:
+                session.add_to_user(name, type)
+                print('Added a ' + type + ' named ' + name.title() + '.')
+                break
+        name = session.user_input("\nWhat's this plant's name? ")
 
 def view_plants():
     """This function lists all of a user's plants."""
     print('\n' + session.user.title() + ' has the following plants:')
     for plant in session.user_data:
         print(plant.title() + ' the ' + session.user_data[plant])
+        
 
 session = users.Session(file_name)
 

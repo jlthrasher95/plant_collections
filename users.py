@@ -17,6 +17,15 @@ class Session(persistent.Session):
         self.user_data = self.key_data
 
 
+    def user_input(self, prompt):
+        """This method performs a quit check on user input and returns
+        the input.
+        """
+        reply = tool.caseless_input(prompt)
+        self.quit_check(reply)
+        return reply
+
+
     def add_user(self, username):
         """This method adds a user to session data with
         a blank dictionary for user data, then saves the session data.
@@ -39,8 +48,7 @@ class Session(persistent.Session):
                 else:
                     self.add_user(name)
                     break
-            name = self.key_input("\nEnter your name: ")
-
+            name = self.user_input("\nEnter your name: ")
 
 
     def add_to_user(self, key, value):
@@ -64,7 +72,7 @@ class Session(persistent.Session):
                     break
                 else:
                     print("Username not found.")
-            name = self.key_input("\nEnter your name: ")
+            name = self.user_input("\nEnter your name: ")
             
 
     def logout(self):

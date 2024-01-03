@@ -4,7 +4,6 @@ can read to and write from a specified JSON file.
 
 
 import json
-import tool
 
 
 class Session():
@@ -43,9 +42,3 @@ class Session():
         """This method checks a string for quit conditions."""
         if string in ('q', 'quit'):
             self.end()
-
-
-    def key_input(self, prompt):
-        reply = tool.caseless_input(prompt)
-        self.quit_check(reply)
-        return reply
