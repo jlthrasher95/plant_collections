@@ -13,18 +13,55 @@ introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
 introduction += 'time to quit.\n\n' + tool.dash_line
 
 def add_plant():
-    """This function adds a new plant to the user's data."""
-    type = session.user_input('\nWhat type of plant would you like to add? ')
+    type = get_plant_type()
+    if type:
+        name = get_plant_name()
+        if name:
+            session.add_to_user(name, type)
+            print('Added a ' + type + ' named ' + name.title() + '.')
+
+def get_plant_type():
+    type_prompt = "\nEnter this plant's type, or 'back' to cancel: "
+    type = None
+    while session.running:
+        if type:
+            if type in ('back', 'b'):
+                print('Plant addition canceled.')
+                return None
+            else:
+                return type
+        type = session.user_input(type_prompt)
+
+def get_plant_name():
+    name_prompt = "\nEnter this plant's name, or 'back' to cancel: "
     name = None
     while session.running:
         if name:
-            if name in session.user_data:
+            if name in ('back', 'b'):
+                print('Plant addition canceled.')
+                return None
+            elif name in session.user_data:
                 print('\nYou already have a plant named ' + name + '!')
             else:
-                session.add_to_user(name, type)
-                print('Added a ' + type + ' named ' + name.title() + '.')
+                return name
+        name = session.user_input(name_prompt)
+
+def remove_plant():
+    """This function removes a plant from the user's collection."""
+    prompt = "\nEnter the name of the plant to remove, or 'back' to cancel: "
+    name = None
+    while session.running:
+        if name:
+            if name in ('back', 'b'):
+                print("Removal canceled.")
                 break
-        name = session.user_input("\nWhat's this plant's name? ")
+            elif name in session.user_data:
+                session.delete_from_user(name)
+                print(name + " removed.")
+                break
+            else:
+                print("You don't have any plants named " + name + "!")
+        name = session.user_input(prompt)
 
 def view_plants():
     """This function lists all of a user's plants."""
@@ -44,6 +81,7 @@ root_options = {'quit' : session.end, 'q' : session.end,
 user_options = {'quit' : session.end, 'q' : session.end,
                 'logout' : session.logout, 'l' : session.logout,
                 'add plant' : add_plant, 'a' : add_plant,
+                'remove plant' : remove_plant, 'r' : remove_plant,
                 'view plants' : view_plants, 'v' : view_plants,
                 }
 

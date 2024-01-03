@@ -19,9 +19,9 @@ class Session(persistent.Session):
 
     def login(self, name):
         """This method selects a current user and loads their data."""
-        print("Welcome, " + name.title() + "!")
         self.user = name
         self.user_data = self.data[name]
+        print("Welcome, " + name.title() + "! You are logged in.")
 
 
     def logout(self):
@@ -31,25 +31,31 @@ class Session(persistent.Session):
         print('\nLogging out.')
 
 
-    def add_user(self, username):
+    def add_user(self, name):
         """This method adds a user to session data with
         a blank dictionary for user data, then saves the session data.
         """
-        self.data[username] = {}
+        self.data[name] = {}
         self.save()
-        print("\nNew user created: " + username)
-        print("Welcome, " + username.title() + ". You may now log in.")
+        print("\nNew user created: " + name)
 
 
     def delete_user(self, name):
         """This method deletes a user from the database."""
         del self.data[name]
+        self.save()
         print("User " + name + " deleted.")
 
 
     def add_to_user(self, key, value):
         """This method sets a key-value pair in the user's data."""
         self.user_data[key] = value
+        self.save()
+
+
+    def delete_from_user(self, name):
+        """This method deletes a key-value pair from the user's data."""
+        del self.user_data[name]
         self.save()
 
 
@@ -76,6 +82,7 @@ class Session(persistent.Session):
                     print("That username is already taken.")
                 else:
                     self.add_user(name)
+                    self.login(name)
                     break
             name = self.user_input("\nEnter your name, or 'back' to go back: ")
 
