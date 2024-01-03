@@ -36,19 +36,22 @@ class Session(persistent.Session):
         print("Welcome, " + username.title() + ". You may now log in.")
 
 
-    def signup(self):
+    def sign_up(self):
         """This allows a new user to be created, provided that the name
         is not taken.
         """
         name = None
         while self.running:
             if name:
-                if name in self.data:
+                if name in ('back', 'b'):
+                    print("Signup canceled.")
+                    break
+                elif name in self.data:
                     print("That username is already taken.")
                 else:
                     self.add_user(name)
                     break
-            name = self.user_input("\nEnter your name: ")
+            name = self.user_input("\nEnter your name, or 'back' to go back: ")
 
 
     def add_to_user(self, key, value):
@@ -57,22 +60,25 @@ class Session(persistent.Session):
         self.save()
 
 
-    def login(self):
-        """This function will select a user by name and load their data,
-        or else will reprompt for input until either a valid user or a
-        quit string is entered.
-        """
+    def login(self, name):
+        print("Welcome, " + name.title() + "!")
+        self.user = name
+        self.user_data = self.data[name]
+
+
+    def sign_in(self):
         name = None
         while self.running:
             if name:
-                if name in self.data:
-                    print("Welcome back, " + name.title() + "!")
-                    self.user = name
-                    self.user_data = self.data[name]
+                if name in ('back', 'b'):
+                    print("Signin canceled.")
+                    break
+                elif name in self.data:
+                    self.login(name)
                     break
                 else:
                     print("Username not found.")
-            name = self.user_input("\nEnter your name: ")
+            name = self.user_input("\nEnter your name, or 'back' to go back: ")
             
 
     def logout(self):

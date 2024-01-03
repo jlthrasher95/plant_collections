@@ -31,13 +31,13 @@ def view_plants():
     print('\n' + session.user.title() + ' has the following plants:')
     for plant in session.user_data:
         print(plant.title() + ' the ' + session.user_data[plant])
-        
+
 
 session = users.Session(file_name)
 
 root_options = {'quit' : session.end, 'q' : session.end,
-                'login' : session.login, 'l' : session.login,
-                'add user' : session.signup, 'a' : session.signup
+                'login' : session.sign_in, 'l' : session.sign_in,
+                'add user' : session.sign_up, 'a' : session.sign_up
                 }
 
 user_options = {'quit' : session.end, 'q' : session.end,
