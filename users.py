@@ -58,6 +58,16 @@ class Session(persistent.Session):
         del self.user_data[name]
         self.save()
 
+    
+    def change_name_data(self, old_name, new_name):
+        """This method copies a user's data into a new username and
+        deletes the old user.
+        """
+        self.data[new_name] = self.data[old_name]
+        del self.data[old_name]
+        self.save()
+        print("Username changed.")
+
 
     def user_input(self, prompt):
         """This method performs a quit check on user input and returns
@@ -126,4 +136,22 @@ class Session(persistent.Session):
                 else:
                     print("Username not found.")
             name = self.user_input("\nEnter your name, or 'back' to go back: ")
+
+
+    def change_name(self):
+        """This method lets a user change their name."""
+        prompt = "\nEnter your new name, or 'back' to go back: "
+        name = None
+        while self.running:
+            if name:
+                if name in ('back', 'b'):
+                    print("Name change canceled.")
+                    break
+                elif name in self.data:
+                    print("That username is already taken.")
+                else:
+                    self.change_name_data(self.user, name)
+                    self.login(name)
+                    break
+            name = self.user_input(prompt)
             
