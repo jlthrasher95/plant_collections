@@ -76,11 +76,11 @@ def view_plants():
 session = users.Session(file_name)
 
 root_options = {('quit', 'q') : session.end,
-                   ('login', 'l') : session.sign_in,
-                   ('add user', 'a') : session.sign_up,
-                   ('remove user', 'r') : session.remove_user,
-                   ('view users', 'v') : session.view_users,
-                   }
+                ('login', 'l') : session.sign_in,
+                ('add user', 'a') : session.sign_up,
+                ('remove user', 'r') : session.remove_user,
+                ('view users', 'v') : session.view_users,
+                }
 
 user_options = {('quit', 'q') : session.end,
                 ('logout', 'l') : session.logout,
