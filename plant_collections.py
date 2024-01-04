@@ -75,14 +75,14 @@ def view_plants():
 
 session = users.Session(file_name)
 
-root_options_tk = {('quit', 'q') : session.end,
+root_options = {('quit', 'q') : session.end,
                    ('login', 'l') : session.sign_in,
                    ('add user', 'a') : session.sign_up,
                    ('remove user', 'r') : session.remove_user,
                    ('view users', 'v') : session.view_users,
                    }
 
-user_options_tk = {('quit', 'q') : session.end,
+user_options = {('quit', 'q') : session.end,
                 ('logout', 'l') : session.logout,
                 ('add plant', 'a') : add_plant,
                 ('remove plant', 'r') : remove_plant,
@@ -94,6 +94,6 @@ user_options_tk = {('quit', 'q') : session.end,
 print(introduction)
 while session.running:
     if session.user:
-        tool.menu_tk(user_options_tk)
+        tool.menu(user_options)
     else:
-        tool.menu_tk(root_options_tk)
+        tool.menu(root_options)

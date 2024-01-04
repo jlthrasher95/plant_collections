@@ -18,9 +18,10 @@ def menu(options_dict):
     passes it to run_selection()
     """
     print('\nThe following options are available:')
-    for key in options_dict:
-        if len(key) > 1:
-            print('\t' + key.title())
+    for key_tuple in options_dict:
+        for subkey in key_tuple:
+            if len(subkey) > 1:
+                print('\t' + subkey.title())
     selection = caseless_input('\nEnter your selection: ')
     run_selection(selection, options_dict)
 
@@ -30,28 +31,6 @@ def run_selection(selection, options_dict):
     options and runs the corresponding function, or else notifies the
     user that the selection was invalid.
     """
-    selection_validated = False
-    for key in options_dict:
-        if selection == key:
-            options_dict[key]()
-            selection_validated = True
-    if not selection_validated:
-        print('Invalid selection.')
-
-
-def menu_tk(options_dict):
-    """This function is WIP to use tuples as keys."""
-    print('\nThe following options are available:')
-    for key_tuple in options_dict:
-        for subkey in key_tuple:
-            if len(subkey) > 1:
-                print('\t' + subkey.title())
-    selection = caseless_input('\nEnter your selection: ')
-    run_selection_tk(selection, options_dict)
-
-
-def run_selection_tk(selection, options_dict):
-    """This function is WIP to use tuples as keys."""
     selection_validated = False
     for key_tuple in options_dict.keys():
         for subkey in key_tuple:
