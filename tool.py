@@ -37,3 +37,27 @@ def run_selection(selection, options_dict):
             selection_validated = True
     if not selection_validated:
         print('Invalid selection.')
+
+
+def menu_tk(options_dict):
+    """This function is WIP to use tuples as keys."""
+    print('\nThe following options are available:')
+    for key_tuple in options_dict:
+        for subkey in key_tuple:
+            if len(subkey) > 1:
+                print('\t' + subkey.title())
+    selection = caseless_input('\nEnter your selection: ')
+    run_selection(selection, options_dict)
+
+
+def run_selection_tk(selection, options_dict):
+    """This function is WIP to use tuples as keys."""
+    selection_validated = False
+    for key_tuple in options_dict.keys():
+        for subkey in key_tuple:
+            print(subkey)
+            if selection == subkey:
+                options_dict[key_tuple]()
+                selection_validated = True
+    if not selection_validated:
+        print('Invalid selection.')

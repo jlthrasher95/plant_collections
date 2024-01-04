@@ -91,6 +91,13 @@ user_options = {'quit' : session.end, 'q' : session.end,
                 'c' : session.change_name,
                 }
 
+root_options_tk = {('quit', 'q') : session.end,
+                   ('login', 'l') : session.sign_in,
+                   ('add user', 'a') : session.sign_up,
+                   ('remove user', 'r') : session.remove_user,
+                   ('view users', 'v') : session.view_users,
+                   }
+
 
 print(introduction)
 while session.running:
