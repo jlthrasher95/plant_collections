@@ -13,6 +13,7 @@ introduction += 'Passwordless Plant Collection Builder.\nEnter "quit" at any'
 introduction += 'time to quit.\n\n' + tool.dash_line
 
 def add_plant():
+    """This function adds a plant to the user's data."""
     type = get_plant_type()
     if type:
         name = get_plant_name()
@@ -21,6 +22,7 @@ def add_plant():
             print('Added a ' + type + ' named ' + name.title() + '.')
 
 def get_plant_type():
+    """This function prompt for a plant type and returns it."""
     type_prompt = "\nEnter this plant's type, or 'back' to cancel: "
     type = None
     while session.running:
@@ -33,6 +35,7 @@ def get_plant_type():
         type = session.user_input(type_prompt)
 
 def get_plant_name():
+    """This function prompt for a plant name and returns it."""
     name_prompt = "\nEnter this plant's name, or 'back' to cancel: "
     name = None
     while session.running:

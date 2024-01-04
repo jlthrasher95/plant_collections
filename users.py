@@ -88,7 +88,7 @@ class Session(persistent.Session):
 
 
     def remove_user(self):
-        """This method prompts the user to enter a name to be removed."""
+        """This method prompts the user for a name to be removed."""
         prompt = "\nEnter the username to remove, or 'back' to go back: "
         name = None
         while self.running:
