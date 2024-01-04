@@ -47,7 +47,7 @@ def menu_tk(options_dict):
             if len(subkey) > 1:
                 print('\t' + subkey.title())
     selection = caseless_input('\nEnter your selection: ')
-    run_selection(selection, options_dict)
+    run_selection_tk(selection, options_dict)
 
 
 def run_selection_tk(selection, options_dict):
@@ -55,7 +55,6 @@ def run_selection_tk(selection, options_dict):
     selection_validated = False
     for key_tuple in options_dict.keys():
         for subkey in key_tuple:
-            print(subkey)
             if selection == subkey:
                 options_dict[key_tuple]()
                 selection_validated = True

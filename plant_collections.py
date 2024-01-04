@@ -75,22 +75,6 @@ def view_plants():
 
 session = users.Session(file_name)
 
-root_options = {'quit' : session.end, 'q' : session.end,
-                'login' : session.sign_in, 'l' : session.sign_in,
-                'add user' : session.sign_up, 'a' : session.sign_up,
-                'remove user' : session.remove_user, 'r' : session.remove_user,
-                'view users' : session.view_users, 'v' : session.view_users,
-                }
-
-user_options = {'quit' : session.end, 'q' : session.end,
-                'logout' : session.logout, 'l' : session.logout,
-                'add plant' : add_plant, 'a' : add_plant,
-                'remove plant' : remove_plant, 'r' : remove_plant,
-                'view plants' : view_plants, 'v' : view_plants,
-                'change username' : session.change_name,
-                'c' : session.change_name,
-                }
-
 root_options_tk = {('quit', 'q') : session.end,
                    ('login', 'l') : session.sign_in,
                    ('add user', 'a') : session.sign_up,
@@ -98,10 +82,18 @@ root_options_tk = {('quit', 'q') : session.end,
                    ('view users', 'v') : session.view_users,
                    }
 
+user_options_tk = {('quit', 'q') : session.end,
+                ('logout', 'l') : session.logout,
+                ('add plant', 'a') : add_plant,
+                ('remove plant', 'r') : remove_plant,
+                ('view plants', 'v') : view_plants,
+                ('change username', 'c') : session.change_name,
+                }
+
 
 print(introduction)
 while session.running:
     if session.user:
-        tool.menu(user_options)
+        tool.menu_tk(user_options_tk)
     else:
-        tool.menu(root_options)
+        tool.menu_tk(root_options_tk)
