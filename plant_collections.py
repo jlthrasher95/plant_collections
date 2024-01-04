@@ -79,6 +79,7 @@ root_options = {'quit' : session.end, 'q' : session.end,
                 'login' : session.sign_in, 'l' : session.sign_in,
                 'add user' : session.sign_up, 'a' : session.sign_up,
                 'remove user' : session.remove_user, 'r' : session.remove_user,
+                'view users' : session.view_users, 'v' : session.view_users,
                 }
 
 user_options = {'quit' : session.end, 'q' : session.end,

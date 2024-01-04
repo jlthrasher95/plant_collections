@@ -66,6 +66,12 @@ class Session(persistent.Session):
         reply = tool.caseless_input(prompt)
         self.quit_check(reply)
         return reply
+    
+    def view_users(self):
+        """This method lists all users."""
+        print("List of users:")
+        for user in self.data:
+            print("\t" + user)
 
 
     def sign_up(self):
