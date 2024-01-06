@@ -77,17 +77,17 @@ session = users.Session(file_name)
 
 root_options = {('quit', 'q') : session.end,
                 ('login', 'l') : session.sign_in,
-                ('add user', 'a') : session.sign_up,
-                ('remove user', 'r') : session.remove_user,
-                ('view users', 'v') : session.view_users,
+                ('add user', 'add', 'a') : session.sign_up,
+                ('remove user', 'remove', 'r') : session.remove_user,
+                ('view users', 'view', 'v') : session.view_users,
                 }
 
 user_options = {('quit', 'q') : session.end,
                 ('logout', 'l') : session.logout,
-                ('add plant', 'a') : add_plant,
-                ('remove plant', 'r') : remove_plant,
-                ('view plants', 'v') : view_plants,
-                ('change username', 'c') : session.change_name,
+                ('add plant', 'add', 'a') : add_plant,
+                ('remove plant', 'remove', 'r') : remove_plant,
+                ('view plants', 'view', 'v') : view_plants,
+                ('change username', 'change', 'c') : session.change_name,
                 }
 
 

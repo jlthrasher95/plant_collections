@@ -13,15 +13,13 @@ def caseless_input(prompt):
 
 
 def menu(options_dict):
-    """This function prints a formatted list of options longer than one
-    character from a dictionary, then takes the user's selection and
-    passes it to run_selection()
+    """This function prints a formatted list of options from
+    a dictionary, then takes the user's selection and
+    passes it to run_selection().
     """
     print('\nThe following options are available:')
     for key_tuple in options_dict:
-        for subkey in key_tuple:
-            if len(subkey) > 1:
-                print('\t' + subkey.title())
+        print('\t' + key_tuple[0].title())
     selection = caseless_input('\nEnter your selection: ')
     run_selection(selection, options_dict)
 
@@ -31,11 +29,10 @@ def run_selection(selection, options_dict):
     options and runs the corresponding function, or else notifies the
     user that the selection was invalid.
     """
-    selection_validated = False
     for key_tuple in options_dict.keys():
         for subkey in key_tuple:
             if selection == subkey:
                 options_dict[key_tuple]()
-                selection_validated = True
-    if not selection_validated:
-        print('Invalid selection.')
+                return True
+    print('Invalid selection.')
+    return False
