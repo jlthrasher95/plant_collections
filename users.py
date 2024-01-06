@@ -81,7 +81,7 @@ class Session(persistent.Session):
         """This method lists all users."""
         print("List of users:")
         for user in self.data:
-            print("\t" + user)
+            print("\t" + user.title())
 
 
     def sign_up(self):
@@ -93,13 +93,13 @@ class Session(persistent.Session):
             if name:
                 if name in ('back', 'b'):
                     print("Signup canceled.")
-                    break
+                    return False
                 elif name in self.data:
                     print("That username is already taken.")
                 else:
                     self.add_user(name)
                     self.login(name)
-                    break
+                    return True
             name = self.user_input("\nEnter your name, or 'back' to go back: ")
 
 
@@ -111,10 +111,10 @@ class Session(persistent.Session):
             if name:
                 if name in ('back', 'b'):
                     print("Removal canceled.")
-                    break
+                    return False
                 elif name in self.data:
                     self.delete_user(name)
-                    break
+                    return True
                 else:
                     print("The user " + name + " does not exist.")
             name = self.user_input(prompt)
@@ -129,10 +129,10 @@ class Session(persistent.Session):
             if name:
                 if name in ('back', 'b'):
                     print("Signin canceled.")
-                    break
+                    return False
                 elif name in self.data:
                     self.login(name)
-                    break
+                    return True
                 else:
                     print("Username not found.")
             name = self.user_input("\nEnter your name, or 'back' to go back: ")
@@ -146,12 +146,12 @@ class Session(persistent.Session):
             if name:
                 if name in ('back', 'b'):
                     print("Name change canceled.")
-                    break
+                    return False
                 elif name in self.data:
                     print("That username is already taken.")
                 else:
                     self.change_name_data(self.user, name)
                     self.login(name)
-                    break
+                    return True
             name = self.user_input(prompt)
             

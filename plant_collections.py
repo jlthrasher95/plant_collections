@@ -57,11 +57,11 @@ def remove_plant():
         if name:
             if name in ('back', 'b'):
                 print("Removal canceled.")
-                break
+                return False
             elif name in session.user_data:
                 session.delete_from_user(name)
                 print(name + " removed.")
-                break
+                return True
             else:
                 print("You don't have any plants named " + name + "!")
         name = session.user_input(prompt)
