@@ -36,3 +36,55 @@ def run_selection(selection, options_dict):
                 return True
     print('Invalid selection.')
     return False
+
+
+def list_for_writelines(list):
+    """This function formats a list for writelines()."""
+    lines = []
+    for item in list:
+        lines.append(str(item) + '\n')
+    return lines
+
+
+def list_to_textfile(tuples, filename):
+    """This function writes a list to a text file."""
+    str_tuples = list_for_writelines(tuples)
+    with open(filename, 'w') as file_object:
+        file_object.writelines(str_tuples)
+
+
+def add_to_file(value, filename):
+    """This function appends a value to a text file as a new line."""
+    with open(filename, 'a') as file_object:
+        file_object.write(str(value) + '\n')
+
+
+def unstring_ints(strings):
+    """This function converts a list of string-integers to integers."""
+    ints = []
+    for str_int in strings:
+        ints.append(int(str_int))
+    return ints
+
+
+def unstring_int_tuples(strings):
+    """This function converts integer-tuples stored as strings into
+    tuples of integers.
+    """
+    tuples = []
+    for str_tuple in strings:
+        strs_list = str_tuple[1:-2].split(", ")
+        tuple_ = tuple(unstring_ints(strs_list))
+        tuples.append(tuple_)
+    return tuples
+
+
+def int_tuples_from_textfile(filename):
+    """This function reads a list of tuples from a text file."""
+    try:
+        with open(filename, 'r') as file_object:
+            tuples = unstring_int_tuples(file_object.readlines())
+    except FileNotFoundError:
+        tuples = [(0, 0),]
+        print('File not found.')
+    return tuples

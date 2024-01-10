@@ -77,6 +77,7 @@ class Session(persistent.Session):
         self.quit_check(reply)
         return reply
     
+    
     def view_users(self):
         """This method lists all users."""
         print("List of users:")
